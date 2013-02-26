@@ -1,0 +1,12 @@
+@(lang: String) 
+@main("title") { 
+
+<h2>@play.i18n.Messages.get("headline_language")</h2>   
+
+
+			<a class="btn @if(lang.equals("de")) {btn-success}" href="/language?lang=de">de</a>
+			<a class="btn @if(lang.equals("en")) {btn-success}" href="/language?lang=en">en</a>	
+
+}
+	
+    

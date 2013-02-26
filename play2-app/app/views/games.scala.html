@@ -1,0 +1,24 @@
+@(gameslist: List[org.oregami.entities.Game])
+
+@main("title") { 
+
+<h2>@play.i18n.Messages.get("headline_listOfGames")</h2>   
+<ul> 
+@for(game <- gameslist) {
+  	<li><a href="/game/@game.getId()">@game.getMainTitle()</a> (@game.getId())</li>
+  	<!-- 
+  	<ul>
+  	@for(releaseGroup <- game.getReleaseGroupList()) {
+  		<li>@releaseGroup.getSystem() (@releaseGroup.getReleaseGroupType())
+	} 
+  	</ul>
+  	 -->
+}
+</ul>
+
+
+<br/><br/>
+<hr/>
+}
+	
+    

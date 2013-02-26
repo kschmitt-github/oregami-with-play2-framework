@@ -1,0 +1,14 @@
+@(platformlist: List[org.oregami.entities.Platform])
+
+@main("title") { 
+
+<h2>@play.i18n.Messages.get("headline_listOfPlatforms")</h2>
+<ul> 
+@for(platform <- platformlist) {
+  	<li>@platform.getTitle</a> (@platform.getId())</li>
+}
+</ul>
+
+}
+	
+    

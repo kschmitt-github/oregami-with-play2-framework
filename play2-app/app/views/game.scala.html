@@ -1,0 +1,15 @@
+@(game: org.oregami.entities.Game)
+
+@main("title") {
+
+  <h4>@game.getMainTitle()</h4>
+    AddOn: @game.addOn <br/>
+    Compilation: @game.compilation <br/>
+    <br/>
+
+
+  <ul>
+    @for(releaseGroup <- game.getReleaseGroupList()) {
+      <li>@releaseGroup.getSystem() (@releaseGroup.getReleaseGroupType())
+    }
+  </ul>}
