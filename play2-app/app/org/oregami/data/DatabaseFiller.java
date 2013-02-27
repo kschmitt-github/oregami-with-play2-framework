@@ -19,7 +19,6 @@ import org.oregami.keyobjects.KeyObjects.ReleaseGroupType;
 import org.oregami.keyobjects.KeyObjects.RoleKey;
 import org.oregami.keyobjects.KeyObjects.ScreenshotType;
 import org.oregami.keyobjects.KeyObjects.SystemKey;
-import org.springframework.stereotype.Component;
 
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
@@ -30,8 +29,6 @@ import com.google.inject.persist.Transactional;
  * @author twendelmuth
  * 
  */
-@Component
-
 public class DatabaseFiller {
 
 	@Inject 
