@@ -2,13 +2,34 @@
 
 @main("admin") { 
 
-<h2>@play.i18n.Messages.get("headline_listOfUsers")</h2>   
-<ul> 
+<h2>@play.i18n.Messages.get("headline_listOfUsers")</h2>
+
+    <table class="table table-striped">
+    <thead>
+    <tr>
+    	<th>Username</th>
+    	<th>Email</th>
+<!--     	<th>Password</th> -->
+    	<th>Roles</th>
+    </tr>
+    </thead>
+    <tbody>
 @for(user <- userlist) {
-	@user.getUsername() / @user.getEmail() / @user.getPassword()
-	<br/>
-}
-</ul>
+	<tr>
+		<td>@user.getUsername()</td>
+		<td>@user.getEmail()</td>
+<!-- 		<td>@user.getPassword()</td> -->
+		<td>
+		@for(role <- user.getRoleList()) {
+			@role.getRoleKey() 
+		}
+		</td>
+	</tr>
+}   
+	</tbody>
+    </table>
+   
+
 
 
 <br/><br/>
