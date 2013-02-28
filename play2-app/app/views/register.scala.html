@@ -1,0 +1,36 @@
+@(result: org.oregami.service.ServiceResult[org.oregami.entities.user.User])
+
+@**********************************
+* Helper generating table headers *
+***********************************@
+@err(ctx: String) = {
+    @if(result!=null && result.getError(ctx)!=null) {
+		<span class="error">@result.getError(ctx).getMessageName()</span>
+	} 
+}
+
+
+
+
+@main("register") { 
+
+
+@if(result!=null && result.hasErrors()) {
+	errors: @result.getErrors().size()
+}
+<h2>_registration_</h2>
+@helper.form(action = routes.Application.doregister()) {
+  <label>_username_:</label> <input type="text" name="username"> @err("username") 
+  <br />
+  <label>_email_:</label> <input type="text" name="email"> @err("email") 
+  <br />
+  <label>_password_:</label> <input type="password" name="password"> @err("password") 
+  <br />
+  <input type="submit" class="btn" value="save">
+}
+
+
+
+}
+	
+    

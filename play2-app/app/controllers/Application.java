@@ -6,9 +6,15 @@ import java.util.List;
 
 import org.oregami.data.GameDao;
 import org.oregami.data.PlatformDao;
+import org.oregami.data.UserDao;
 import org.oregami.entities.Game;
 import org.oregami.entities.Platform;
+import org.oregami.entities.user.User;
+import org.oregami.service.IUserService;
+import org.oregami.service.ServiceResult;
 
+import play.data.DynamicForm;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -23,7 +29,13 @@ public class Application extends Controller {
 	@Inject
     public PlatformDao platformRepository;
 	
-    @com.google.inject.persist.Transactional
+	@Inject
+	public IUserService userService;
+	
+	@Inject
+    public UserDao userRepository;	
+	
+    @Transactional
     public Result index() {
 
     	List<Game> gameslist = new ArrayList<Game>();
@@ -69,7 +81,35 @@ public class Application extends Controller {
     		list.add((Platform) iter.next());
 		}
         return ok(views.html.platforms.render(list));
-    }      
+    } 
+    
+    public Result register(){
+        return ok(views.html.register.render(null));
+    } 
+    
+    public Result doregister(){
+        DynamicForm data = Form.form().bindFromRequest(); // will read each parameter from post and provide their values through map accessor methods
+        // accessing a not defined parameter will result in null
+        String username = data.get("username");
+        String password = data.get("password");
+        String email = data.get("email");
+        
+        System.out.println(userService + "/" + username  + "/" + password + "/" + email);
+
+        User user = new User();
+        user.setEmail(email);
+        user.setPasswordAndEncryptIt(password);
+        user.setUsername(username);
+        
+        ServiceResult<User> serviceResult = userService.register(user);
+       
+        return ok(views.html.register.render(serviceResult));
+    }  
+    
+    public Result admin(){
+    	List<User> list = userRepository.findAll();
+    	return ok(views.html.admin.render(list));
+    }         
     
     
     @Transactional

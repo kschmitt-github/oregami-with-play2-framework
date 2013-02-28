@@ -13,5 +13,17 @@ public class UserDao extends GenericDAOImpl<User, Long>{
 		super(man);
 		// TODO Auto-generated constructor stub
 	}
+	
+    public User findByUsername(String name) {
+        try {
+            return (User) 
+            	getEntityManager()
+                .createNamedQuery("findByUsername")
+                .setParameter("UserName", name)
+                .getSingleResult();
+        } catch(Exception e) {
+            return null;
+        }
+    }
 
 }

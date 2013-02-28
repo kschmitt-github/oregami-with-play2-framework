@@ -5,15 +5,20 @@
 # Home page
 GET     /                           @controllers.Application.index()
 
-GET     /language                @controllers.Application.changeLanguage(lang:String)
+GET     /language					@controllers.Application.changeLanguage(lang:String)
 
-GET     /languages                @controllers.Application.listLanguages()
+GET     /languages					@controllers.Application.listLanguages()
 
-GET     /games                      @controllers.Application.listGames()
+GET     /games						@controllers.Application.listGames()
 
-GET     /platforms                      @controllers.Application.listPlatforms()
+GET     /platforms					@controllers.Application.listPlatforms()
+
+GET     /register					@controllers.Application.register()
+POST    /register					@controllers.Application.doregister()
 
 GET     /game/:id                   @controllers.Application.showGame(id: Long)
+
+GET    	/admin						@controllers.Application.admin()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
