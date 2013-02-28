@@ -15,7 +15,9 @@ object ApplicationBuild extends Build {
 //    javaJpa,
     "org.hibernate" % "hibernate-entitymanager" % "4.1.9.Final",
     "com.google.inject" % "guice" % "3.0",
-    "com.google.inject.extensions" % "guice-persist" % "3.0"
+    "com.google.inject.extensions" % "guice-persist" % "3.0",
+    "org.jasypt" % "jasypt" % "1.9.0"
+            
             
   )
 
