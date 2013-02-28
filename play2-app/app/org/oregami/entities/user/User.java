@@ -23,13 +23,26 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.oregami.entities.BaseEntity;
 import org.oregami.keyobjects.KeyObjects.RoleKey;
 
 //@Audited
 @Entity
+@NamedQueries ({
+@NamedQuery(
+	    name="findByUsername",
+	    query="FROM User u WHERE username = :UserName"
+	),
+@NamedQuery(
+	    name="User.GetAll",
+	    query="FROM User u"
+	)
+})
 public class User extends BaseEntity {
 
 	private static final long serialVersionUID = 4594670372719416989L;
@@ -84,8 +97,22 @@ public class User extends BaseEntity {
 	}
 	
 	public void setPasswordAndEncryptIt(String plaintext) {
-//		String enc = new ShaPasswordEncoder(256).encodePassword(plaintext, null);
-//		this.password = enc;
+		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+		String encryptedPassword = passwordEncryptor.encryptPassword(plaintext);
+		
+		/* for login:
+		 StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+String encryptedPassword = passwordEncryptor.encryptPassword(userPassword);
+...
+if (passwordEncryptor.checkPassword(inputPassword, encryptedPassword)) {
+  // correct!
+} else {
+  // bad login!
+}
+see http://www.jasypt.org/encrypting-passwords.html
+		 */
+		
+		this.password = encryptedPassword;
 	}
 
 	public List<Role> getRoleList() {
