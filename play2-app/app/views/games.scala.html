@@ -1,6 +1,6 @@
-@(gameslist: List[org.oregami.entities.Game])
+@(h: org.oregami.html.HtmlHeader, gameslist: List[org.oregami.entities.Game])
 
-@main("title") { 
+@main(h.getTitle()) { 
 
 <h2>@play.i18n.Messages.get("headline_listOfGames")</h2>   
 <ul> 
@@ -17,8 +17,6 @@
 </ul>
 
 
-<br/><br/>
-<hr/>
 }
 	
     

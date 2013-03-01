@@ -1,7 +1,16 @@
+
+navHome=Home
 navGameslist=Games
 navPlatforms=Platforms
 navLanguage=Language
+navAdmin=Admin
 
 headline_language=Language
 headline_listOfGames=List of Games
 headline_listOfPlatforms=List of Platforms
+
+btnRegister=register
+btnLogin=login
+btnLogout=logout
+btnProfile=profile
+

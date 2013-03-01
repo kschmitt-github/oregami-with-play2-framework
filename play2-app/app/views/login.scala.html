@@ -1,7 +1,14 @@
+@(msg: String)
+
 @main("login") { 
 
 
 <h2>_login_</h2>
+
+@if(msg!=null) {
+	<span class="error">@msg</span>
+}
+
 @helper.form(action = routes.Application.dologin()) {
   <label>_username_:</label> <input type="text" name="username">
   <br />

@@ -11,6 +11,7 @@ import org.oregami.data.UserDao;
 import org.oregami.entities.Game;
 import org.oregami.entities.Platform;
 import org.oregami.entities.user.User;
+import org.oregami.html.HtmlHeader;
 import org.oregami.service.IUserService;
 import org.oregami.service.ServiceResult;
 
@@ -18,7 +19,8 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import be.objectify.deadbolt.java.actions.SubjectPresent;
+import be.objectify.deadbolt.java.actions.Group;
+import be.objectify.deadbolt.java.actions.Restrict;
 
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
@@ -39,6 +41,10 @@ public class Application extends Controller {
 	
     public Result index() {
         return ok(views.html.index.render());
+    }
+    
+    private HtmlHeader header(String title) {
+    	return new HtmlHeader().title(title);
     }
     
     
@@ -63,7 +69,7 @@ public class Application extends Controller {
     	while (gamesIter.hasNext()) {
     		gameslist.add((Game) gamesIter.next());
 		}
-        return ok(views.html.games.render(gameslist));
+        return ok(views.html.games.render(header("_games_"),gameslist));
     }
     
     @Transactional
@@ -99,7 +105,7 @@ public class Application extends Controller {
         return ok(views.html.register.render(serviceResult));
     }  
     
-    @SubjectPresent
+    @Restrict({@Group("Admin")})
     public Result admin(){
     	List<User> list = userRepository.findAll();
     	return ok(views.html.admin.render(list));
@@ -107,7 +113,7 @@ public class Application extends Controller {
 
     
     public Result login(){
-    	return ok(views.html.login.render());
+    	return ok(views.html.login.render(null));
     }
     
     public Result dologin(){
@@ -115,13 +121,22 @@ public class Application extends Controller {
         // accessing a not defined parameter will result in null
         String username = data.get("username");
         String inputPassword = data.get("password");
+        
+        if (username==null || inputPassword==null || username.length()==0 || inputPassword.length()==0) {
+        	return ok(views.html.login.render("org.oregami.login.fillAllData"));
+        }
+        
 		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-		String encryptedPassword = userRepository.findByUsername(username).getPassword();
-		if (passwordEncryptor.checkPassword(inputPassword, encryptedPassword)) {
+		User loadedUser = userRepository.findByUsername(username);
+		if (loadedUser==null) {
+			return ok(views.html.login.render("org.oregami.login.unknownUser"));
+		}
+		
+		if (passwordEncryptor.checkPassword(inputPassword, loadedUser.getPassword())) {
 			session("user", username);
 			return redirect("/");
 		} else {
-			return ok(views.html.login.render());
+			return ok(views.html.login.render("org.oregami.login.wrongPassword"));
 			// bad login!
 		}        
     	
@@ -130,7 +145,9 @@ public class Application extends Controller {
     @Transactional
     public Result showGame(Long gameId) {
 //    	return ok();
-    	return ok(views.html.game.render(gameRepository.findOne(gameId)));
+    	Game game = gameRepository.findOne(gameId);
+    			
+		return ok(views.html.game.render(header("_game_: " + game.getMainTitle()), game));
     }  
     
     public Result logout(){

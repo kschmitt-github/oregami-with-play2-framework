@@ -1,7 +1,15 @@
+
+navHome=Home
 navGameslist=Spiele
 navPlatforms=Plattformen
 navLanguage=Sprache
+navAdmin=Admin
 
 headline_language=Sprache
 headline_listOfGames=Liste aller Spiele
 headline_listOfPlatforms=Liste aller Plattformen
+
+btnRegister=Registrieren
+btnLogin=Anmelden
+btnLogout=Abmelden
+btnProfile=Profil

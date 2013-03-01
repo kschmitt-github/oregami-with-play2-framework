@@ -4,9 +4,14 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
+import javax.mail.AuthenticationFailedException;
+import javax.mail.MessagingException;
+
 import org.oregami.data.UserDao;
+import org.oregami.entities.user.Role;
 import org.oregami.entities.user.User;
 import org.oregami.entities.user.UserStatus;
+import org.oregami.keyobjects.KeyObjects.RoleKey;
 import org.oregami.keyobjects.KeyObjects.UserStatusKey;
 import org.oregami.util.validation.UserValidator;
 
@@ -35,6 +40,17 @@ public class UserServiceImpl implements IUserService {
     public void uponSuccessfulRegistration(){
  
     	System.out.println("sending email...");
+    	try {
+			new SendMailUsingAuthentication().postMail(new String[]{"gene@kultpower.de"}, "Betreff", "Nachricht", "demo@oregami.org");
+		} catch (AuthenticationFailedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 //        List<String> userEmailIds = new ArrayList<String>();
 //        userEmailIds.add("gene@kultpower.de");
 //        
@@ -81,6 +97,10 @@ public class UserServiceImpl implements IUserService {
             userStatus.setCreationDate(new Timestamp(System.currentTimeMillis()));
             userStatus.setUserStatus(UserStatusKey.Registration);
             user.addUserStatus(userStatus);
+            
+            Role userRole = new Role();
+            userRole.setRoleKey(RoleKey.User);
+			user.getRoleList().add(userRole);
             
             user.setPasswordAndEncryptIt(user.getPassword());
             userRepository.save(user);

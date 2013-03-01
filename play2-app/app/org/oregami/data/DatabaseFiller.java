@@ -41,7 +41,7 @@ public class DatabaseFiller {
 	private GenericDAO<Platform, Long> platformRepository;	
 	
 
-	public void addMonkeyIsland() {
+	private void addMonkeyIsland() {
 		Game gameMonkeyIsland = new Game();
 		
 		gameMonkeyIsland.addGameTitle(new GameTitle("Monkey Island"));
@@ -177,7 +177,7 @@ public class DatabaseFiller {
 		gameRepository.save(gameMonkeyIsland);
 	}
 
-	public void addResidentEvilGame() {
+	private void addResidentEvilGame() {
 
 		Game gameResidentEvil = new Game();
 		// gameResidentEvil.setId(2l);
@@ -252,7 +252,7 @@ public class DatabaseFiller {
 		gameRepository.save(gameResidentEvil);
 	}
 
-	public void addXWingGame() {
+	private void addXWingGame() {
 		Game gameXWing = new Game();
 
 		gameXWing.setTagLineDescription("X-Wing tld");
@@ -290,7 +290,7 @@ public class DatabaseFiller {
 		gameRepository.save(gameXWing);
 	}
 
-	public void addUsers() {
+	private void addUsers() {
 
 		if (userRepository.findOne(1L)!=null) return;
 		

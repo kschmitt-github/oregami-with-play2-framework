@@ -1,7 +1,8 @@
-@(title: String)(content: Html)(implicit lang: Lang)
+@(title: String)(content: Html)
 
 @import be.objectify.deadbolt.java.views.html._
 @import be.objectify.deadbolt.core.utils.TemplateUtils._
+@import play.i18n._
 
 <!DOCTYPE html>
 
@@ -22,16 +23,20 @@
 <div class="navbar">
 	<div class="navbar-inner"> 
 	
-		<a class="brand" href="/">Oregami.dev</a>
-		<ul class="nav">
-			<li><a href="/games">@play.i18n.Messages.get("navGameslist")</a></li>
+		<ul class="nav nav-tabs">
+			<li><a href="/">@Messages.get("navHome")</a>
 			
-			<li><a href="/platforms">@play.i18n.Messages.get("navPlatforms")</a></li>
+			<li><a href="/games">@Messages.get("navGameslist")</a></li>
 			
-			<li><a href="/languages">@play.i18n.Messages.get("navLanguage")</a></li>
+			<li><a href="/platforms">@Messages.get("navPlatforms")</a></li>
+			
+			<li><a href="/languages">@Messages.get("navLanguage")</a></li>
+			
+			@restrict(la(as("Admin"))) {
+				<li><a href="/admin">@Messages.get("navAdmin")</a></li>
+			}
 
-			<img src="oregami_logo.png" border="0">
-			
+<!-- 			<img src="/assets/images/oregami_logo.png" border="0"> -->
 		</ul>
 	</div>
 </div>
@@ -42,11 +47,12 @@
 
 <br/><br/><hr/>
 @subjectNotPresent() {
-	<a href="/login"><span class="btn btn-small">Login</span></a>
+	<a href="/login"><span class="btn btn-small">@Messages.get("btnLogin")</span></a>
+	<a href="/register"><span class="btn btn-small">@Messages.get("btnRegister")</span></a>
 }
 @subjectPresent() {
-	<a href="/logout"><span class="btn btn-small">Logout</span></a> 
-	<a href="/profile"><span class="btn btn-small">Profile</span></a>
+	<a href="/logout"><span class="btn btn-small btn-danger">@Messages.get("btnLogout")</span></a> 
+	<a href="/profile"><span class="btn btn-small">@Messages.get("btnProfile") (@session.get("user"))</span></a>
 }
 </div>
 </body>

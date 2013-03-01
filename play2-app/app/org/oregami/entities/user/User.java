@@ -57,6 +57,8 @@ public class User extends BaseEntity implements Subject {
 	
 	private String password;
 	
+	private transient boolean passwordIsEncrypted = false;
+	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Collection<UserStatus> userStatusList = new ArrayList<UserStatus>();
 	
@@ -100,6 +102,8 @@ public class User extends BaseEntity implements Subject {
 	}
 	
 	public void setPasswordAndEncryptIt(String plaintext) {
+		if (passwordIsEncrypted) return;
+		
 		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
 		String encryptedPassword = passwordEncryptor.encryptPassword(plaintext);
 		
@@ -116,6 +120,7 @@ see http://www.jasypt.org/encrypting-passwords.html
 		 */
 		
 		this.password = encryptedPassword;
+		passwordIsEncrypted=true;
 	}
 
 	public List<Role> getRoleList() {
@@ -159,8 +164,7 @@ see http://www.jasypt.org/encrypting-passwords.html
 
 	@Override
 	public List<? extends be.objectify.deadbolt.core.models.Role> getRoles() {
-		// TODO Auto-generated method stub
-		return null;
+		return getRoleList();
 	}
 
 //	public void setUserStatusList(Collection<UserStatus> userStatusList) {

@@ -1,6 +1,6 @@
-@(game: org.oregami.entities.Game)
+@(h: org.oregami.html.HtmlHeader, game: org.oregami.entities.Game)
 
-@main("title") {
+@main(h.getTitle()) {
 
   <h4>@game.getMainTitle()</h4>
     AddOn: @game.addOn <br/>
