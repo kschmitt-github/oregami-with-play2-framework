@@ -1,6 +1,11 @@
+
+@import play.i18n._
+
 @main("title") { 
 
-This is a test of the <a href="http://www.playframework.com/" target="_blank">Play Framework</a>.
+<h2>@Messages.get("welcomeTitle")</h2>
+
+@Html(Messages.get("welcomeMessage"))
 
 }
 	

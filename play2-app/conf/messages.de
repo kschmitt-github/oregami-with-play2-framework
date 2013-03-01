@@ -13,3 +13,6 @@ btnRegister=Registrieren
 btnLogin=Anmelden
 btnLogout=Abmelden
 btnProfile=Profil
+
+welcomeTitle=Willkommen!
+welcomeMessage=Dies ist der aktuelle Entwicklungs-Stand unserer Spiele-Datenbank <b>auf Basis des <a href="http://www.playframework.com" target="_blank">Play! Framework</a></b>.<br/><br/>Bitte dran denken:<ul><li>Desing/Layout sind absolut als <strong>vorl&auml;ufig</strong> anzusehen!</li><li>es gibt hier keine Garantie, dass Alles funktioniert</li><li>es kann sich Alles jederzeit &aumlndern</li><li>Mithilfe erw&uuml;nscht! <a href="http://www.oregami.org" target="_blank">Oregami.org</a></ul>

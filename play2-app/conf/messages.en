@@ -14,3 +14,7 @@ btnLogin=login
 btnLogout=logout
 btnProfile=profile
 
+welcomeTitle=Welcome!
+welcomeMessage=This is the current development state of our Game Database <b>using the <a href="http://www.playframework.com" target="_blank">Play! Framework</a></b>.<br/><br/>Please note:<ul><li>design and layout are absolutely <strong>temporary</strong></li><li>you have no warranty that everything works</li><li>everything can change any moment</li><li>Develop with us! Visit <a href="http://www.oregami.org" target="_blank">oregami.org</a></li></ul>
+
+
