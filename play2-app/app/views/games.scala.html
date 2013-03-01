@@ -1,8 +1,9 @@
 @(h: org.oregami.html.HtmlHeader, gameslist: List[org.oregami.entities.Game])
+@import play.i18n._
 
-@main(h.getTitle()) { 
+@main(Messages.get(h.getTitle())) { 
 
-<h2>@play.i18n.Messages.get("headline_listOfGames")</h2>   
+<h2>@Messages.get("headline_listOfGames")</h2>   
 <ul> 
 @for(game <- gameslist) {
   	<li><a href="/game/@game.getId()">@game.getMainTitle()</a> (@game.getId())</li>
