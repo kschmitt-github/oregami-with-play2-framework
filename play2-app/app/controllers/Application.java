@@ -49,9 +49,8 @@ public class Application extends Controller {
     
     
     public Result changeLanguage(String lang) {
-    	//session("lang", lang);
     	changeLang(lang);
-    	return redirect("/languages");
+    	return redirect("/");
     }
     
     
@@ -62,14 +61,12 @@ public class Application extends Controller {
     @Transactional
     public Result listGames() {
     	
-    	session("lang", "de");
-    	
     	List<Game> gameslist = new ArrayList<Game>();
     	Iterator<Game> gamesIter = gameRepository.findAll().iterator();
     	while (gamesIter.hasNext()) {
     		gameslist.add((Game) gamesIter.next());
 		}
-        return ok(views.html.games.render(header("_games_"),gameslist));
+        return ok(views.html.games.render(header("pagetitleGames"),gameslist));
     }
     
     @Transactional
