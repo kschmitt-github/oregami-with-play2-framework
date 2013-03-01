@@ -1,10 +1,7 @@
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.contentType;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
-import org.oregami.entities.Game;
 
 import play.mvc.Content;
 
@@ -25,7 +22,7 @@ public class ApplicationTest {
     
     @Test
     public void renderTemplate() {
-        Content html = views.html.index.render(new ArrayList<Game>());
+        Content html = views.html.index.render();
         assertThat(contentType(html)).isEqualTo("text/html");
     }
   

@@ -1,5 +1,9 @@
-package org.oregami.data;
+package org.oregami.guice;
 
+import org.oregami.data.GameDao;
+import org.oregami.data.GenericDAO;
+import org.oregami.data.PlatformDao;
+import org.oregami.data.UserDao;
 import org.oregami.entities.Game;
 import org.oregami.entities.Platform;
 import org.oregami.entities.user.User;

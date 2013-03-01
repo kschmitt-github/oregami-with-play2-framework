@@ -31,6 +31,9 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.oregami.entities.BaseEntity;
 import org.oregami.keyobjects.KeyObjects.RoleKey;
 
+import be.objectify.deadbolt.core.models.Permission;
+import be.objectify.deadbolt.core.models.Subject;
+
 //@Audited
 @Entity
 @NamedQueries ({
@@ -43,7 +46,7 @@ import org.oregami.keyobjects.KeyObjects.RoleKey;
 	    query="FROM User u"
 	)
 })
-public class User extends BaseEntity {
+public class User extends BaseEntity implements Subject {
 
 	private static final long serialVersionUID = 4594670372719416989L;
 
@@ -141,6 +144,23 @@ see http://www.jasypt.org/encrypting-passwords.html
 
 	public Collection<UserStatus> getUserStatusList() {
 		return userStatusList;
+	}
+
+	@Override
+	public String getIdentifier() {
+		return username;
+	}
+
+	@Override
+	public List<? extends Permission> getPermissions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<? extends be.objectify.deadbolt.core.models.Role> getRoles() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 //	public void setUserStatusList(Collection<UserStatus> userStatusList) {

@@ -17,14 +17,19 @@ object ApplicationBuild extends Build {
     "com.google.inject" % "guice" % "3.0",
     "com.google.inject.extensions" % "guice-persist" % "3.0",
     "org.jasypt" % "jasypt" % "1.9.0",
-    "javax.mail" % "mail" % "1.4.6"
+    "javax.mail" % "mail" % "1.4.6",
+    "be.objectify" %% "deadbolt-java" % "2.1-SNAPSHOT"
             
             
             
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
-    // Add your own project settings here      
+    // Add your own project settings here
+      
+	  resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.com/releases/"))(Resolver.ivyStylePatterns),
+	  resolvers += Resolver.url("Objectify Play Snapshot Repository", url("http://schaloner.github.com/snapshots/"))(Resolver.ivyStylePatterns)
+      
   )
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.oregami.data.GameDao;
 import org.oregami.data.PlatformDao;
 import org.oregami.data.UserDao;
@@ -17,6 +18,7 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import be.objectify.deadbolt.java.actions.SubjectPresent;
 
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
@@ -35,17 +37,8 @@ public class Application extends Controller {
 	@Inject
     public UserDao userRepository;	
 	
-    @Transactional
     public Result index() {
-
-    	List<Game> gameslist = new ArrayList<Game>();
-    	
-    	Iterator<Game> gamesIter = gameRepository.findAll().iterator();
-    	while (gamesIter.hasNext()) {
-    		gameslist.add((Game) gamesIter.next());
-		}
-    	
-        return ok(views.html.index.render(gameslist));
+        return ok(views.html.index.render());
     }
     
     
@@ -106,16 +99,45 @@ public class Application extends Controller {
         return ok(views.html.register.render(serviceResult));
     }  
     
+    @SubjectPresent
     public Result admin(){
     	List<User> list = userRepository.findAll();
     	return ok(views.html.admin.render(list));
     }         
+
     
+    public Result login(){
+    	return ok(views.html.login.render());
+    }
+    
+    public Result dologin(){
+        DynamicForm data = Form.form().bindFromRequest(); // will read each parameter from post and provide their values through map accessor methods
+        // accessing a not defined parameter will result in null
+        String username = data.get("username");
+        String inputPassword = data.get("password");
+		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+		String encryptedPassword = userRepository.findByUsername(username).getPassword();
+		if (passwordEncryptor.checkPassword(inputPassword, encryptedPassword)) {
+			session("user", username);
+			return redirect("/");
+		} else {
+			return ok(views.html.login.render());
+			// bad login!
+		}        
+    	
+    }        
     
     @Transactional
     public Result showGame(Long gameId) {
 //    	return ok();
     	return ok(views.html.game.render(gameRepository.findOne(gameId)));
+    }  
+    
+    public Result logout(){
+    	session().clear();
+    	return redirect("/");
     }    
+    
+    
   
 }

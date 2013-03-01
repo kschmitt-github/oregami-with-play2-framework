@@ -1,5 +1,8 @@
 @(title: String)(content: Html)(implicit lang: Lang)
 
+@import be.objectify.deadbolt.java.views.html._
+@import be.objectify.deadbolt.core.utils.TemplateUtils._
+
 <!DOCTYPE html>
 
 
@@ -36,6 +39,15 @@
 @content
 <!-- content end -->
 
+
+<br/><br/><hr/>
+@subjectNotPresent() {
+	<a href="/login"><span class="btn btn-small">Login</span></a>
+}
+@subjectPresent() {
+	<a href="/logout"><span class="btn btn-small">Logout</span></a> 
+	<a href="/profile"><span class="btn btn-small">Profile</span></a>
+}
 </div>
 </body>
 </html>
