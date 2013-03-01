@@ -24,13 +24,28 @@
 	<div class="navbar-inner"> 
 	
 		<ul class="nav nav-tabs">
+			
 			<li><a href="/">@Messages.get("navHome")</a>
 			
 			<li><a href="/games">@Messages.get("navGameslist")</a></li>
 			
 			<li><a href="/platforms">@Messages.get("navPlatforms")</a></li>
-			
-			<li><a href="/languages">@Messages.get("navLanguage")</a></li>
+
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">@Messages.get("navLanguage")<b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					@if(lang.code().toString().equals("de")) {
+						<li><a class="disabled" style="color:#999999;">de</a></li>
+						<li><a class="@if(lang.code().toString().equals("en")) {disabled}" href="/language?lang=en">en</a></li>						 
+					}
+					@if(lang.code().toString().equals("en")) {
+						<li><a class="@if(lang.code().toString().equals("de")) {disabled}" href="/language?lang=de">de</a></li>
+						<li><a class="disabled" style="color:#999999;">en</a></li>
+					}					
+				</ul>
+			</li>
+
+<!-- 			<li><a href="/languages">@Messages.get("navLanguage")</a></li> -->
 			
 			@restrict(la(as("Admin"))) {
 				<li><a href="/admin">@Messages.get("navAdmin")</a></li>
