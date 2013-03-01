@@ -86,7 +86,7 @@ public class Application extends Controller {
         return ok(views.html.register.render(null));
     } 
     
-    public Result doregi ster(){
+    public Result doregister(){
         DynamicForm data = Form.form().bindFromRequest(); // will read each parameter from post and provide their values through map accessor methods
         // accessing a not defined parameter will result in null
         String username = data.get("username");
