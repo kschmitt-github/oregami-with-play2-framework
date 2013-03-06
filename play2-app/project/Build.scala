@@ -18,7 +18,10 @@ object ApplicationBuild extends Build {
     "com.google.inject.extensions" % "guice-persist" % "3.0",
     "org.jasypt" % "jasypt" % "1.9.0",
     "javax.mail" % "mail" % "1.4.6",
-    "be.objectify" %% "deadbolt-java" % "2.1-SNAPSHOT"
+    "be.objectify" %% "deadbolt-java" % "2.1-SNAPSHOT",
+    "net.sf.flexjson" % "flexjson" % "3.0"
+    
+    //,"mysql" % "mysql-connector-java" % "5.1.23"
             
             
             
