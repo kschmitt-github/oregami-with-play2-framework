@@ -1,12 +1,39 @@
 @(h: org.oregami.html.HtmlHeader, gameslist: List[org.oregami.entities.Game])
 @import play.i18n._
 
+
 @main(Messages.get(h.getTitle())) { 
+
+<script type="text/javascript">
+
+$( document ).ready(function() {
+	$('#typeahead').typeahead({
+		  name: 'accounts',
+		  template: '<p>{{name}} <span class="label">{{system}}</span></p>',
+		  engine: Hogan,
+		  remote: 'http://localhost:9000/search/game/json/%QUERY',
+		});
+});
+
+</script>
+
+
+Suche: <input type="text" id="typeahead">
 
 <h2>@Messages.get("headline_listOfGames")</h2>   
 <ul> 
 @for(game <- gameslist) {
-  	<li><a href="/game/@game.getId()">@game.getMainTitle()</a> (@game.getId())</li>
+  	<li><a href="/game/@game.getId()">@game.getMainTitle()</a> 
+  	<span style="color:#777777;">
+  	@for((releaseGroup,index) <- game.getReleaseGroupList().zipWithIndex
+  	){@if(index>0){, }@releaseGroup.getSystem()}</span>  
+  	<br/>
+	@game.getReleaseGroupList().groupBy(_.getSystem()).map {
+	    case (group, items) => {
+	        @group
+	    }
+	}  	 	
+  	</li>
   	<!-- 
   	<ul>
   	@for(releaseGroup <- game.getReleaseGroupList()) {
@@ -16,6 +43,7 @@
   	 -->
 }
 </ul>
+<br/>
 
 
 }

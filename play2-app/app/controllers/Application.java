@@ -12,6 +12,7 @@ import org.oregami.entities.Game;
 import org.oregami.entities.Platform;
 import org.oregami.entities.user.User;
 import org.oregami.html.HtmlHeader;
+import org.oregami.json.GameSearch;
 import org.oregami.service.IUserService;
 import org.oregami.service.ServiceResult;
 
@@ -24,6 +25,8 @@ import be.objectify.deadbolt.java.actions.Restrict;
 
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
+
+import flexjson.JSONSerializer;
 
 public class Application extends Controller {
   
@@ -151,6 +154,21 @@ public class Application extends Controller {
     	session().clear();
     	return redirect("/");
     }    
+    
+    @Transactional
+    public Result searchGameJson(String g) {
+    	System.out.println("search: " + g);
+    	List<Game> findAll = gameRepository.findByName(g);
+    	List<GameSearch> gameSearchList = new ArrayList<GameSearch>();
+    	for (Game game : findAll) {
+    		gameSearchList.add(new GameSearch(game));			
+		}
+    	
+    	JSONSerializer gameDetailsSerializer = 
+    			new JSONSerializer().include("id","name","description","value", "system").exclude("*").prettyPrint(true);
+    	
+    	return ok(gameDetailsSerializer.serialize(gameSearchList));
+    }
     
     
   

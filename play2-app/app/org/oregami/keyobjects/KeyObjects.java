@@ -18,7 +18,34 @@ package org.oregami.keyobjects;
 
 public class KeyObjects {
 	
-	public enum SystemKey {Amiga, C64, MSDOS, AtariST, AppleMacintosh, SonyPlaystation, NintendoWii, NintendoGamecube, SegaSaturn, Windows};
+	public enum SystemKey {
+		Amiga, AtariST, C64, MSDOS, AppleMacintosh, Windows, 
+		
+		NintendoWii, 
+		NintendoGamecube, 
+		SuperNintendo,
+		
+		Sega32X,
+		Panasonic3DO,
+		CD32,
+		Dreamcast,
+		Gameboy,
+		GameGear,
+		Jaguar,
+		Lynx,
+		MasterSystem,
+		MegaCD,
+		MegaDrive,
+		NES,
+		NeoGeo,
+		NeoGeoCD,
+		Nintendo64,
+		PCEngine,
+		Playstation,
+		Playstation2,
+		Saturn,
+		
+	};
 	public enum DistributionKey {RegularBox};
 	public enum LanguageKey {DE, EN};
 	

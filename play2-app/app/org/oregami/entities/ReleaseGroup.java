@@ -68,6 +68,10 @@ public class ReleaseGroup extends BaseEntity implements WebGui {
 	public SystemKey getSystem() {
 		return system;
 	}
+	
+	public void setSystem(SystemKey system) {
+		this.system = system;
+	}	
 
 	public void setGame(Game game) {
 		this.game = game;
@@ -82,6 +86,10 @@ public class ReleaseGroup extends BaseEntity implements WebGui {
 		return releaseGroupType;
 	}
 
+	public void setReleaseGroupType(ReleaseGroupType releaseGroupType) {
+		this.releaseGroupType = releaseGroupType;
+	}	
+	
 	public String getName() {
 		return name;
 	}
