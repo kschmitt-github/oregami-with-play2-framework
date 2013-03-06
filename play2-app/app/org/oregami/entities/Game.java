@@ -28,7 +28,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
@@ -37,7 +36,10 @@ import org.hibernate.annotations.NamedQuery;
 import org.oregami.keyobjects.KeyObjects.SystemKey;
 
 @Entity
-@NamedQueries({@NamedQuery(name="Game.GetAll", query = "from Game")})
+@NamedQueries({
+	@NamedQuery(name="Game.GetAll", query = 
+			"from Game g")
+})
 public class Game extends BaseEntity implements WebGui {
 
 	private static final long serialVersionUID = -2362683596950421365L;
@@ -53,7 +55,7 @@ public class Game extends BaseEntity implements WebGui {
 	public boolean addOn;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
-	@JoinTable
+	@JoinColumn(name="GameId", referencedColumnName="id")
 	private Set<GameTitle> gameTitleList = new HashSet<GameTitle>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
